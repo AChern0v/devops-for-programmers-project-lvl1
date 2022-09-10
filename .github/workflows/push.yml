@@ -1,0 +1,16 @@
+name: push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+      - run: make compose-tests
+      - run: make compose-build
+      - run: make compose-push
