@@ -11,8 +11,8 @@ jobs:
 
       - name: Build and Test
         run: |
-          make compose-build
-          make compose-tests
+          docker-compose -f docker-compose.yml build --no-cache app
+          docker-compose -f docker-compose.yml up --abort-on-container-exit --exit-code-from app
       - name: Login to DockerHub Registry
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
