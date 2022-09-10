@@ -1,16 +1,20 @@
-name: push
+name: Docker Actions
 
-on:
-  push:
-    branches:
-      - master
+on: push
 
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: actions/checkout@v2
-      - run: make compose-tests
-      - run: make compose-build
-      - run: make compose-push
+      - name: Build and Test
+        run: |
+          docker-compose -f docker-compose.yml build --no-cache app
+          docker-compose -f docker-compose.yml run --rm app npm test
+      - name: Login to DockerHub Registry
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Push Image
+        run: docker-compose -f docker-compose.yml push app
