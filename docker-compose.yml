@@ -16,4 +16,4 @@ services:
     image: postgres:latest
     restart: always
     env_file: 
-    - ./.env.example
+    - ./.env
