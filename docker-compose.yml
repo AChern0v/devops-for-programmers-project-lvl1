@@ -5,7 +5,8 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.production
     command: npm test
     volumes:
       - "./app:/app"
+    image: andriichernov/devops-for-programmers-project-lvl1
