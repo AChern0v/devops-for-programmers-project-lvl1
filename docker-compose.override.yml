@@ -8,15 +8,24 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: npm run dev
+    command: bash -c 'sleep 3 && npm start'
     volumes:
       - "./app:/app"
-    
+      - ".env.example:/app/.env"
+
   caddy:
     image: caddy:latest
     ports:
-      - 8081:80
+      - 80:80
       - 443:443
       - 443:443/udp
     volumes:
       - ./services/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+volumes:
+  caddy_data:
+  caddy_config:
