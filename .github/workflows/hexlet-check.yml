@@ -21,6 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Docker cleaning
+        run: docker system prune -a
+
       - name: Hexlet project check
         uses: hexlet/project-action@release
         with:
