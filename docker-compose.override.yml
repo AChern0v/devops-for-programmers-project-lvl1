@@ -11,7 +11,6 @@ services:
     command: bash -c 'sleep 3 && npm start'
     volumes:
       - "./app:/app"
-      - "./.env:/app/.env"
 
   caddy:
     image: caddy:latest
